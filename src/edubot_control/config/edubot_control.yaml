@@ -1,0 +1,16 @@
+edubot:
+    # Publish all joint states -----------------------------------
+    joint_state_controller:
+        type: joint_state_controller/JointStateController
+        publish_rate: 50  
+  
+    # Speed Controllers ---------------------------------------
+    wheel_R_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: wheel_R_joint
+        pid: {p: 0.01, i: 0.001, d: 0.0}
+
+    wheel_L_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: wheel_L_joint
+        pid: {p: 0.01, i: 0.001, d: 0.0}

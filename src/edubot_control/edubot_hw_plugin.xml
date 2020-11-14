@@ -1,0 +1,9 @@
+<library path="lib/libedubot_hardware_interfaces">
+    <class name="edubot_hardware_interface/EdubotInterface"
+        type="edubot_hardware_interface::EdubotInterface"
+        base_class_type="hardware_interface::RobotHW">
+        <description>
+      Interface for Edubot
+        </description>
+    </class>
+</library>

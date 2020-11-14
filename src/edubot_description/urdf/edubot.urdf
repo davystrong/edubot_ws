@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="edubot">
+  <gazebo>
+    <plugin name="gazebo_ros_control"
+      filename="libgazebo_ros_control.so">
+      <robotNamespace>/edubot</robotNamespace>
+    </plugin>
+  </gazebo>
+  <transmission name="wheel_R_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_R_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="wheel_R_motor">
+      <mechanicalReduction>50</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
+  <transmission name="wheel_L_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wheel_L_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="wheel_L_motor">
+      <mechanicalReduction>50</mechanicalReduction>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
+  <link name="dummy_link"/>
+  <link name="base_link">
+    <inertial>
+      <origin xyz="1.21409650717497 0.093469728767792 0.0651283442325704"
+        rpy="0 0 0" />
+      <mass value="0.807295940286987" />
+      <inertia ixx="0.00124995328995185"
+        ixy="5.48875259597702E-06"
+        ixz="1.60843403892943E-08"
+        iyy="0.000815822142561248"
+        iyz="2.03312935816794E-09"
+        izz="0.00202876555109556" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 0.3" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="dummy_joint"
+    type="fixed">
+    <origin xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent link="dummy_link"/>
+    <child link="base_link"/>
+  </joint>
+  <link name="wheel_R">
+    <inertial>
+      <origin xyz="1.2972852539872E-05 -5.19111584591087E-06 -0.0128168135688715"
+        rpy="0 0 0" />
+      <mass value="0.0366200800005193" />
+      <inertia ixx="1.54581104997609E-05"
+        ixy="-5.54925536186205E-09"
+        ixz="2.15559415344642E-11"
+        iyy="1.54505378024002E-05"
+        iyz="-1.00704269603853E-10"
+        izz="2.68135787494564E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/wheel_R.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/wheel_R.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wheel_R_joint"
+    type="continuous">
+    <origin xyz="1.1195 0.07884 0.041664"
+      rpy="1.5708 0.548 -1.5708" />
+    <parent link="base_link" />
+    <child link="wheel_R" />
+    <axis xyz="0 0 -1" />
+  </joint>
+  <link name="wheel_L">
+    <inertial>
+      <origin xyz="1.29544121257041E-05 -5.18750446731886E-06 0.0138895251558055"
+        rpy="0 0 0" />
+      <mass value="0.0366201141601765" />
+      <inertia ixx="1.54580386273488E-05"
+        ixy="-5.18673761155951E-09"
+        ixz="2.39885787006489E-11"
+        iyy="1.54506321292415E-05"
+        iyz="-1.03057240556364E-10"
+        izz="2.68135987300166E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/wheel_L.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/wheel_L.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="wheel_L_joint"
+    type="continuous">
+    <origin xyz="1.2819 0.078949 0.041664"
+      rpy="-1.5708 -0.83493 -1.5616" />
+    <parent link="base_link" />
+    <child link="wheel_L" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="caster_link_1">
+    <inertial>
+      <origin xyz="-2.49846896616113E-05 0.0169280354528207 -0.00654692929558215"
+        rpy="0 0 0" />
+      <mass value="0.0119271329150289" />
+      <inertia ixx="1.30781634432988E-06"
+        ixy="-7.08872735525014E-11"
+        ixz="-3.11314380041412E-10"
+        iyy="1.62492306701025E-06"
+        iyz="-2.48045197313275E-07"
+        izz="1.17405162095841E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/caster_link_1.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.529411764705882 0.549019607843137 0.549019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/caster_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="caster_link_1_joint"
+    type="continuous">
+    <origin xyz="1.2141 0.21445 0.017704"
+      rpy="1.5708 0 3.1398" />
+    <parent link="base_link" />
+    <child link="caster_link_1" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="caster_link_2">
+    <inertial>
+      <origin xyz="3.08716341379522E-09 5.55111512312578E-17 1.73472347597681E-17"
+        rpy="0 0 0" />
+      <mass value="0.056899671429687" />
+      <inertia ixx="6.67981738753141E-06"
+        ixy="9.92658094094261E-21"
+        ixz="1.42254385843807E-21"
+        iyy="4.25841522564986E-06"
+        iyz="-2.64697796016969E-21"
+        izz="4.25841522564987E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/caster_link_2.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.529411764705882 0.549019607843137 0.549019607843137 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://edubot_description/meshes/caster_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="caster_link_2_joint"
+    type="continuous">
+    <origin xyz="0 0.006 -0.015015"
+      rpy="-1.8396 0 0" />
+    <parent link="caster_link_1" />
+    <child link="caster_link_2" />
+    <axis xyz="1 0 0" />
+  </joint>
+</robot>
