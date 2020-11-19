@@ -9,7 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 catkin_package(
-  INCLUDE_DIRS include
+  # INCLUDE_DIRS include
   CATKIN_DEPENDS controller_manager hardware_interface
 )
 
@@ -18,12 +18,15 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+add_library(robot_socket
+    src/robot_socket.cpp
+)
+
 add_library(edubot_hardware_interfaces 
     src/edubot_hw.cpp
 )
-target_link_libraries(edubot_hardware_interfaces ${catkin_LIBRARIES})
 
-# add_executable(edubot_control_node
-#     src/edubot_control_node.cpp
-# )
-# target_link_libraries(edubot_control_node ${catkin_LIBRARIES})
+add_executable(edubot_control_node
+    src/edubot_control_node.cpp
+)
+target_link_libraries(edubot_control_node edubot_hardware_interfaces robot_socket ${catkin_LIBRARIES})

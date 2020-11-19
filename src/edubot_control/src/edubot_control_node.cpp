@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ros/ros.h>
 #include <controller_manager/controller_manager.h>
+#include "edubot_hw.hpp"
 
 int main(int argc, char **argv)
 {
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
     ros::NodeHandle nh;
-    combined_robot_hw::CombinedRobotHW hw;
+    edubot_hardware_interface::EdubotInterface hw;
     bool init_success = hw.init(nh, nh);
 
     controller_manager::ControllerManager cm(&hw, nh);

@@ -1,0 +1,5 @@
+robot_hardware:
+  type: edubot_hardware_interface/EdubotInterface
+  joints:
+    - wheel_L_joint
+    - wheel_R_joint

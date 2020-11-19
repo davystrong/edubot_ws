@@ -1,10 +1,11 @@
-// #include <ros/ros.h>
-// #include <iostream>
-// #include <hardware_interface/joint_state_interface.h>
-// #include <hardware_interface/joint_command_interface.h>
-// #include <hardware_interface/robot_hw.h>
-// #include <pluginlib/class_list_macros.hpp>
-// #include <string>
+#include <ros/ros.h>
+#include <iostream>
+#include <hardware_interface/joint_state_interface.h>
+#include <hardware_interface/joint_command_interface.h>
+#include <hardware_interface/robot_hw.h>
+#include <pluginlib/class_list_macros.hpp>
+#include <string>
+#include "robot_socket.hpp"
 
 namespace edubot_hardware_interface
 {
@@ -35,6 +36,8 @@ namespace edubot_hardware_interface
 
         //given setpoints
         std::vector<double> joint_effort_command;
+
+        robot_socket::RobotSocket robot_socket;
 
         //MyRobot1CPP* robot;
     };
