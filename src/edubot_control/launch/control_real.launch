@@ -1,0 +1,36 @@
+<launch>
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find edubot_control)/config/edubot_control.yaml"
+        command="load"/>
+    <param name="robot_description"
+        textfile="$(find edubot_description)/urdf/edubot_real.urdf" />
+    <rosparam file="$(find edubot_control)/config/hardware.yaml"
+        command="load"
+        ns="/edubot"/>
+    <!-- load the controllers -->
+    <node name="controller_spawner"
+        pkg="controller_manager"
+        type="spawner"
+        respawn="false"
+        output="screen"
+        ns="/edubot"
+        args="joint_state_controller wheel_R_velocity_controller wheel_L_velocity_controller"/>
+    <node name="edubot_control_node"
+        pkg="edubot_control"
+        type="edubot_control_node"
+        ns="/edubot"
+        output="screen"/>
+    <!-- convert joint states to TF transforms for rviz, etc -->
+    <node name="robot_state_publisher"
+        pkg="robot_state_publisher"
+        type="robot_state_publisher"
+        respawn="false"
+        output="screen">
+        <remap from="/joint_states"
+            to="/edubot/joint_states" />
+    </node>
+    <node name="fake_joint_calibration"
+        pkg="rostopic"
+        type="rostopic"
+        args="pub /calibrated std_msgs/Bool true" />
+</launch>
