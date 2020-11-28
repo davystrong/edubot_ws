@@ -3,8 +3,8 @@ edubot:
     joint_state_controller:
         type: joint_state_controller/JointStateController
         publish_rate: 50  
-  
-    # Speed Controllers ---------------------------------------
+
+    # Speed Controllers v1 ------------------------------------
     wheel_R_velocity_controller:
         type: effort_controllers/JointVelocityController
         joint: wheel_R_joint
@@ -14,3 +14,23 @@ edubot:
         type: effort_controllers/JointVelocityController
         joint: wheel_L_joint
         pid: {p: 0.01, i: 0.001, d: 0.0}
+  
+    # Speed Controllers v2 ------------------------------------
+    # wheel_R_velocity_controller:
+    #     type: effort_controllers/JointVelocityController
+    #     joint: wheel_R_joint
+    #     pid: {p: 0.0751, i: 0.0427, d: 0.0243}
+
+    # wheel_L_velocity_controller:
+    #     type: effort_controllers/JointVelocityController
+    #     joint: wheel_L_joint
+    #     pid: {p: 0.0751, i: 0.0427, d: 0.0243}
+
+    # Effort Controllers ---------------------------------------
+    wheel_R_effort_controller:
+        type: effort_controllers/JointEffortController
+        joint: wheel_R_joint
+
+    wheel_L_effort_controller:
+        type: effort_controllers/JointEffortController
+        joint: wheel_L_joint
