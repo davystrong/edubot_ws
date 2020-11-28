@@ -29,6 +29,10 @@ namespace edubot_hardware_interface
         int num_joints;
         std::vector<std::string> joint_name;
 
+        //temp states
+        std::vector<double> temp_joint_position_state;
+        std::vector<double> temp_joint_velocity_state;
+
         //actual states
         std::vector<double> joint_position_state;
         std::vector<double> joint_velocity_state;
@@ -40,5 +44,7 @@ namespace edubot_hardware_interface
         robot_socket::RobotSocket robot_socket;
 
         //MyRobot1CPP* robot;
+    private:
+        std::vector<float> message_vals;
     };
 } // namespace edubot_hardware_interface

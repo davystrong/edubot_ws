@@ -12,6 +12,9 @@
 #include <arpa/inet.h>
 #include "robot_socket.hpp"
 #include <sstream>
+#include <math.h>
+#define PULSES_PER_REV 1496.0
+#define WHEEL_DIAMETER 0.065
 
 namespace edubot_hardware_interface
 {
@@ -31,9 +34,33 @@ namespace edubot_hardware_interface
         num_joints = joint_name.size();
 
         robot_socket = robot_socket::RobotSocket("192.168.0.8", 8080);
-        // num_joints = 1;
+        robot_socket.setReaderCb([this](std::string message) {
+            std::size_t from = 0;
+            std::size_t index = 0;
+            auto to = message.find(',', from);
+            double d_time = std::stof(message.substr(from, to));
+            from = to + 1;
+
+            to = message.find(',', from);
+            double left_count = std::stod(message.substr(from, to));
+            from = to + 1;
+
+            to = message.find(',', from);
+            double right_count = std::stod(message.substr(from, to));
+            from = to + 1;
+
+            double left_dist = WHEEL_DIAMETER * M_PI * left_count / PULSES_PER_REV;
+            double right_dist = WHEEL_DIAMETER * M_PI * right_count / PULSES_PER_REV;
+
+            temp_joint_velocity_state[0] = (temp_joint_position_state[0] - left_dist) / d_time;
+            temp_joint_velocity_state[1] = (temp_joint_position_state[1] - right_dist) / d_time;
+            temp_joint_position_state[0] = left_dist;
+            temp_joint_position_state[1] = right_dist;
+        });
 
         //resize vectors
+        temp_joint_position_state.resize(num_joints);
+        temp_joint_velocity_state.resize(num_joints);
         joint_position_state.resize(num_joints);
         joint_velocity_state.resize(num_joints);
         joint_effort_state.resize(num_joints);
@@ -42,7 +69,6 @@ namespace edubot_hardware_interface
         //Register handles
         for (int i = 0; i < num_joints; i++)
         {
-
             //State
             hardware_interface::JointStateHandle jointStateHandle(joint_name[i], &joint_position_state[i], &joint_velocity_state[i], &joint_effort_state[i]);
             joint_state_interface.registerHandle(jointStateHandle);
@@ -65,12 +91,10 @@ namespace edubot_hardware_interface
         static auto start_time = time;
         for (int i = 0; i < num_joints; i++)
         {
-            if ((time - start_time).toSec() > 10)
-            {
-                joint_velocity_state[i] = 1.0;
-                joint_position_state[i] = 1.0;
-                joint_effort_state[i] = 1.0;
-            }
+            //TODO: Reading from temp vectors should be done in a mutex/lock
+            std::cout << temp_joint_velocity_state[i] << std::endl;
+            joint_velocity_state[i] = temp_joint_velocity_state[i];
+            joint_position_state[i] = temp_joint_position_state[i];
         }
     }
 
